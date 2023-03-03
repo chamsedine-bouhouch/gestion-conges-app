@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamp('start_date');
             $table->timestamp('end_date');
+            $table->string('status');
+            $table->string('commentaire')->nullable();
             $table->foreignId('user_id')
                 ->constrained()
                 ->onUpdate('cascade')
