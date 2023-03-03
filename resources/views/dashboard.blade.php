@@ -1,0 +1,41 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+
+
+        <div class=" max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <x-primary-button ry-buttonclass="ml-3">
+                {{ __('Request Leave') }}
+            </x-primary-button>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('leaves.create') }}">
+                {{ __('Request Leave') }}
+            </a>
+            @forelse ($leaves as $leave)
+            <div class="m-2 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 ">
+                    <div class="p-2 text-black-1200 text-lg font-semibold">
+                        Numéro de congé : {{ $leave->id }}
+                    </div>
+                    <div class="p-2 text-gray-900">
+                        Date Début: {{ date('d-m-Y', strtotime($leave->start_date)) }}
+                    </div>
+                    <div class="p-2 text-gray-900">
+                        Date Fin: {{ date('d-m-Y', strtotime($leave->end_date)) }}
+                    </div>
+                    <div class="p-2 text-gray-900">
+                        Status: {{ $leave->status }}
+                    </div>
+                </div>
+            </div>
+            @empty
+            <p>No leaves</p>
+            @endforelse
+        </div>
+
+    </div>
+</x-app-layout>

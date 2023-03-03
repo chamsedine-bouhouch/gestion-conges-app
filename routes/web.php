@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\User;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', function () {
-     $users = User::all();
-    dd($users);
+Route::get('/dashboard', function (Request $request) {
+    $leaves = $request->user()->leaves;
+    return view('dashboard', compact('leaves'));
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    /**
+     * Leaves Routes
+     */
+    Route::get('/leaves', [LeaveController::class, 'create'])->name('leaves.create');
+
+     
 });
 
-Route::get('/users/{id}', function ($id) {
-    // return view('welcome');
-    $user = User::find($id)->leaves;
-    dd($user);
-});
+require __DIR__ . '/auth.php';
