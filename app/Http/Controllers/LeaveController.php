@@ -32,13 +32,13 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'start_date' => ['required', 'date','after_or_equal:today'],
-            'end_date' => ['required', 'date','after_or_equal:start_date'],
-            'commentaire' => [ 'string','max:255'],
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'commentaire' => ['string', 'max:255'],
 
         ]);
 
-        $leave=Leave::create([
+        Leave::create([
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'user_id' => $request->user()->id,
@@ -69,7 +69,10 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        //
+        $leave->update([
+            'status' => $request->status === 'approve' ? LeaveStatus::APPROUVE : LeaveStatus::REFUSE
+        ]);
+        return back();
     }
 
     /**

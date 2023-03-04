@@ -31,4 +31,8 @@ class Leave extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function enAttente()
+    {
+        return $this->status === LeaveStatus::ENATTENTE;
+    }
 }

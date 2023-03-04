@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('/leaves', [LeaveController::class, 'create'])->name('leaves.create');
     Route::post('/leaves', [LeaveController::class, 'store'])->name('leaves.store');
-});
+    Route::put('/leaves/{leave}', [LeaveController::class, 'update'])->name('leaves.update');
+ });
 
 require __DIR__ . '/auth.php';
