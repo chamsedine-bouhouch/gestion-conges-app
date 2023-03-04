@@ -13,6 +13,8 @@ class Leave extends Model
     protected $fillable = [
         'start_date',
         'end_date',
+        'status',
+        'user_id',
         'commentaire'
     ];
     /**

@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
      * Leaves Routes
      */
     Route::get('/leaves', [LeaveController::class, 'create'])->name('leaves.create');
+    Route::post('/leaves', [LeaveController::class, 'store'])->name('leaves.store');
 
      
 });
