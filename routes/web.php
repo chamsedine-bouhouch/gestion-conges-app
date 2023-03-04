@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Leave;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function (Request $request) {
-    $leaves = $request->user()->leaves;
+
+    $leaves = $request->user()->is_admin ? Leave::all() : $request->user()->leaves;
     return view('dashboard', compact('leaves'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -35,8 +37,6 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('/leaves', [LeaveController::class, 'create'])->name('leaves.create');
     Route::post('/leaves', [LeaveController::class, 'store'])->name('leaves.store');
-
-     
 });
 
 require __DIR__ . '/auth.php';
