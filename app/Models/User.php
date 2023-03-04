@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Leave::class);
     }
+    public function employees()
+    {
+        return User::where('is_admin', 0)->get();
+    }
 }

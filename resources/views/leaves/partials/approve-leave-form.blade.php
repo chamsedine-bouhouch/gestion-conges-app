@@ -2,5 +2,5 @@
     @csrf
     @method('put')
     <input id="status" name="status" type="text" value="approve" hidden />
-    <x-primary-button>{{ __('Approve') }}</x-primary-button>
+    <x-primary-button>{{ __('Approuvé') }}</x-primary-button>
 </form>
